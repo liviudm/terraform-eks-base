@@ -1,12 +1,14 @@
 #!/bin/bash
 
-cd /home/docker/actions-runner
+set -eo pipefail
 
-./config.sh --url https://github.com/DigitalMOB2/infrastructure --labels ${RUNNER_LABELS} --token ${RUNNER_TOKEN}
+cd /home/docker/actions-runner || exit
+
+./config.sh --url https://github.com/DigitalMOB2/infrastructure --labels "${RUNNER_LABELS}" --token "${RUNNER_TOKEN}"
 
 cleanup() {
     echo "Removing runner..."
-    ./config.sh remove --unattended --token ${RUNNER_TOKEN}
+    ./config.sh remove --unattended --token "${RUNNER_TOKEN}"
 }
 
 trap 'cleanup; exit 130' INT
@@ -17,4 +19,3 @@ echo "|| Welcome to DigitalMOB GitHub Actions Runner ||"
 echo "================================================="
 
 ./run.sh & wait $!
-
