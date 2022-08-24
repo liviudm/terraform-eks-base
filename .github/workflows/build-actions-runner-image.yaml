@@ -1,6 +1,20 @@
 name: Build runner image(s)
 
 on:
+  push:
+    paths:
+      - 'docker/actions-runner/**'
+      - '.github/workflows/build-actions-runner-image.yaml'
+    branches:
+      - main
+  pull_request:
+    paths:
+      - 'docker/actions-runner/**'
+      - '.github/workflows/build-actions-runner-image.yaml'
+    branches:
+      - main
+    types:
+      - closed
   schedule:
     - cron:  '0 7 * * 1'
 
@@ -27,9 +41,11 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: actions-runner
-          IMAGE_TAG: actions-runner
+          IMAGE_TAG: latest
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+            -f ${GITHUB_WORKSPACE}/docker/actions-runner/Dockerfile \
+            ${GITHUB_WORKSPACE}/docker/actions-runner
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
   build-otterfish:
@@ -54,7 +70,9 @@ jobs:
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           ECR_REPOSITORY: actions-runner
-          IMAGE_TAG: actions-runner
+          IMAGE_TAG: latest
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
+            -f ${GITHUB_WORKSPACE}/docker/actions-runner/Dockerfile \
+            ${GITHUB_WORKSPACE}/docker/actions-runner
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
