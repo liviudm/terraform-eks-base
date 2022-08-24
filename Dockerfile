@@ -8,7 +8,7 @@ RUN apt-get update -y && \
     apt-get upgrade -y && \
     apt-get install -y --no-install-recommends \
         curl jq build-essential libssl-dev libffi-dev python3 python3-venv python3-dev python3-pip \
-        awscli nodejs && \
+        awscli git nodejs && \
     rm -rf /var/lib/apt/lists/* && \
     useradd -m docker
 
