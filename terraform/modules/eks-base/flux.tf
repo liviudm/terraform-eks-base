@@ -53,7 +53,8 @@ resource "tls_private_key" "flux" {
 }
 
 data "flux_install" "main" {
-  target_path = "k8s/clusters/${var.cluster_name}"
+  target_path      = "k8s/clusters/${var.cluster_name}"
+  components_extra = ["image-reflector-controller", "image-automation-controller"]
 }
 
 data "flux_sync" "main" {
@@ -176,7 +177,7 @@ resource "kubernetes_secret" "main" {
 }
 
 data "github_repository" "main" {
-  name = var.flux_repository_name
+  full_name = format("%s/%s", var.github_owner, var.flux_repository_name)
 }
 
 resource "github_repository_deploy_key" "main" {

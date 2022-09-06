@@ -1,44 +1,44 @@
 variable "network" {
-  type = string
+  type        = string
   description = "Network CIDR to be used for VPC"
 }
 
 variable "cluster_name" {
-  type = string
+  type        = string
   description = "EKS Cluster Name"
 }
 
 variable "cluster_admins" {
-  type = list(string)
+  type        = list(string)
   description = "List of EKS Cluster administrators"
 }
 
 variable "cluster_enabled_log_types" {
-  type = list(string)
+  type        = list(string)
   description = "List of Cloudwatch EKS Control Plane log types to enable"
-  default = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  default     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 }
 
 variable "node_instance_type" {
-  type = list(string)
+  type        = list(string)
   description = "Karpenter Provisioner EC2 instance types "
-  default = ["m6a.large", "m6a.xlarge", "m6a.2xlarge", "m6a.4xlarge", "c6a.large", "c6a.xlarge", "c6a.2xlarge", "c6a.4xlarge", "r6a.large", "r6a.xlarge", "r6a.2xlarge", "r6a.4xlarge"]
+  default     = ["m6a.large", "m6a.xlarge", "m6a.2xlarge", "m6a.4xlarge", "c6a.large", "c6a.xlarge", "c6a.2xlarge", "c6a.4xlarge", "r6a.large", "r6a.xlarge", "r6a.2xlarge", "r6a.4xlarge"]
 }
 
 variable "node_instance_arch" {
-  type = list(string)
+  type        = list(string)
   description = "Karpenter Provisioner EC2 instance architecture"
-  default = ["amd64"]
+  default     = ["amd64"]
 }
 
 variable "node_instance_capacity_type" {
-  type = list(string)
+  type        = list(string)
   description = "Karpenter Provisioner EC2 instance capacity type"
-  default = ["spot", "on-demand"]
+  default     = ["spot", "on-demand"]
 }
 
 variable "tags" {
-  type = map(string)
+  type        = map(string)
   description = "Map of tags for all resources"
 }
 
@@ -48,22 +48,10 @@ variable "github_owner" {
   default     = "DigitalMOB2"
 }
 
-variable "github_token" {
-  type        = string
-  description = "github token"
-  sensitive   = true
-}
-
 variable "flux_repository_name" {
   type        = string
   description = "Flux github repository name"
   default     = "infrastructure"
-}
-
-variable "flux_repository_visibility" {
-  type        = string
-  description = "How visible is the github repo"
-  default     = "private"
 }
 
 variable "flux_branch" {

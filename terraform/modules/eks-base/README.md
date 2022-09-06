@@ -83,9 +83,7 @@
 | <a name="input_cluster_name"></a> [cluster\_name](#input\_cluster\_name) | EKS Cluster Name | `string` | n/a | yes |
 | <a name="input_flux_branch"></a> [flux\_branch](#input\_flux\_branch) | branch name | `string` | `"master"` | no |
 | <a name="input_flux_repository_name"></a> [flux\_repository\_name](#input\_flux\_repository\_name) | Flux github repository name | `string` | `"infrastructure"` | no |
-| <a name="input_flux_repository_visibility"></a> [flux\_repository\_visibility](#input\_flux\_repository\_visibility) | How visible is the github repo | `string` | `"private"` | no |
 | <a name="input_github_owner"></a> [github\_owner](#input\_github\_owner) | Flux github owner | `string` | `"DigitalMOB2"` | no |
-| <a name="input_github_token"></a> [github\_token](#input\_github\_token) | github token | `string` | n/a | yes |
 | <a name="input_network"></a> [network](#input\_network) | Network CIDR to be used for VPC | `string` | n/a | yes |
 | <a name="input_node_instance_arch"></a> [node\_instance\_arch](#input\_node\_instance\_arch) | Karpenter Provisioner EC2 instance architecture | `list(string)` | <pre>[<br>  "amd64"<br>]</pre> | no |
 | <a name="input_node_instance_capacity_type"></a> [node\_instance\_capacity\_type](#input\_node\_instance\_capacity\_type) | Karpenter Provisioner EC2 instance capacity type | `list(string)` | <pre>[<br>  "spot",<br>  "on-demand"<br>]</pre> | no |
