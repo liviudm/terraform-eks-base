@@ -39,7 +39,7 @@ module "eks" {
 
   #  create_aws_auth_configmap = true
   manage_aws_auth_configmap = true
-  aws_auth_users            = [
+  aws_auth_users = [
     for user_arn in concat(var.cluster_admins) : {
       userarn  = user_arn
       username = split("/", user_arn)[1]
