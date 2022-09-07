@@ -38,6 +38,24 @@ resource "aws_iam_policy" "flux" {
         Effect   = "Allow"
         Resource = aws_kms_key.fluxcd.arn
       },
+      {
+        Action = [
+          "ecr:GetAuthorizationToken",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:GetRepositoryPolicy",
+          "ecr:DescribeRepositories",
+          "ecr:ListImages",
+          "ecr:DescribeImages",
+          "ecr:BatchGetImage",
+          "ecr:GetLifecyclePolicy",
+          "ecr:GetLifecyclePolicyPreview",
+          "ecr:ListTagsForResource",
+          "ecr:DescribeImageScanFindings"
+        ]
+        Effect   = "Allow"
+        Resource = "*"
+      }
     ]
 
   })
@@ -136,6 +154,26 @@ locals {
     annotations:
       eks.amazonaws.com/role-arn: ${module.irsa_flux.iam_role_arn}
     name: notification-controller
+    namespace: flux-system
+    EOT
+
+    psa_image_automation = <<EOT
+  apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    annotations:
+      eks.amazonaws.com/role-arn: ${module.irsa_flux.iam_role_arn}
+    name: image-automation-controller
+    namespace: flux-system
+    EOT
+
+    psa_image_reflector = <<EOT
+  apiVersion: v1
+  kind: ServiceAccount
+  metadata:
+    annotations:
+      eks.amazonaws.com/role-arn: ${module.irsa_flux.iam_role_arn}
+    name: image-reflector-controller
     namespace: flux-system
     EOT
   }
