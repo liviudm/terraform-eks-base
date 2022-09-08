@@ -222,7 +222,7 @@ resource "github_repository_deploy_key" "main" {
   title      = "flux-${var.cluster_name}"
   repository = data.github_repository.main.name
   key        = tls_private_key.flux.public_key_openssh
-  read_only  = true
+  read_only  = false
 }
 
 resource "github_repository_file" "install" {
