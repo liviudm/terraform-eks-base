@@ -2,7 +2,7 @@ module "vpc" {
   source  = "registry.terraform.io/terraform-aws-modules/vpc/aws"
   version = "3.14.2"
 
-  name = var.cluster_name
+  name = try(var.vpc_name, var.cluster_name)
   cidr = var.network
   azs  = ["${data.aws_region.current.name}a", "${data.aws_region.current.name}b", "${data.aws_region.current.name}c"]
 

@@ -3,6 +3,11 @@ variable "network" {
   description = "Network CIDR to be used for VPC"
 }
 
+variable "vpc_name" {
+  type        = string
+  description = "Do NOT use. Added just to provide compatibility for misc EKS cluster"
+}
+
 variable "cluster_name" {
   type        = string
   description = "EKS Cluster Name"
