@@ -6,6 +6,7 @@ variable "network" {
 variable "vpc_name" {
   type        = string
   description = "Do NOT use. Added just to provide compatibility for misc EKS cluster"
+  default     = ""
 }
 
 variable "cluster_name" {
