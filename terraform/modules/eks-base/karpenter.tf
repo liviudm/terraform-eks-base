@@ -76,6 +76,8 @@ resource "kubectl_manifest" "karpenter_provisioner" {
   metadata:
     name: default
   spec:
+    consolitation:
+      enabled: true
     requirements:
       - key: node.kubernetes.io/instance-type
         operator: In
@@ -86,20 +88,59 @@ resource "kubectl_manifest" "karpenter_provisioner" {
       - key: karpenter.sh/capacity-type
         operator: In
         values: ${jsonencode(var.node_instance_capacity_type)}
-    limits:
-      resources:
-        cpu: 16000
-    provider:
-      subnetSelector:
-        karpenter.sh/discovery: ${var.cluster_name}
-      securityGroupSelector:
-        karpenter.sh/discovery: ${var.cluster_name}
-      tags:
-        karpenter.sh/discovery: ${var.cluster_name}
-    ttlSecondsAfterEmpty: 30
+    providerRef:
+      name: default
   YAML
 
   depends_on = [
     helm_release.karpenter
   ]
+}
+
+resource "kubectl_manifest" "karpenter_awsnodetemplate" {
+  yaml_body = <<-YAML
+  apiVersion: karpenter.k8s.aws/v1alpha1
+  kind: AWSNodeTemplate
+  metadata:
+    name: default
+  spec:
+    amiFamily: AL2
+    instanceProfile: ${aws_iam_instance_profile.karpenter.name}
+    blockDeviceMappings:
+      - deviceName: /dev/xvda
+        ebs:
+          volumeSize: 50Gi
+          volumeType: gp3
+          iops: 3000
+          throughput: 125
+          deleteOnTermination: true
+    subnetSelector:
+      karpenter.sh/discovery: ${var.cluster_name}
+    securityGroupSelector:
+      karpenter.sh/discovery: ${var.cluster_name}
+    tags:
+      karpenter.sh/discovery: ${var.cluster_name}
+  YAML
+
+  depends_on = [helm_release.karpenter]
+}
+
+data "http" "karpenter_provisioner_crd" {
+  url = "https://raw.githubusercontent.com/aws/karpenter/v${local.cluster_addons_version.karpenter}/charts/karpenter/crds/karpenter.sh_provisioners.yaml"
+}
+
+data "http" "karpenter_awsnodetemplates_crd" {
+  url = "https://raw.githubusercontent.com/aws/karpenter/v${local.cluster_addons_version.karpenter}/charts/karpenter/crds/karpenter.k8s.aws_awsnodetemplates.yaml"
+}
+
+resource "kubectl_manifest" "karpenter_provisioner_crd" {
+  yaml_body = data.http.karpenter_provisioner_crd.response_body
+
+  depends_on = [helm_release.karpenter]
+}
+
+resource "kubectl_manifest" "karpenter_awsnodetemplates_crd" {
+  yaml_body = data.http.karpenter_awsnodetemplates_crd.response_body
+
+  depends_on = [helm_release.karpenter]
 }
