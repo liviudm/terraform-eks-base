@@ -87,8 +87,9 @@
 | <a name="input_network"></a> [network](#input\_network) | Network CIDR to be used for VPC | `string` | n/a | yes |
 | <a name="input_node_instance_arch"></a> [node\_instance\_arch](#input\_node\_instance\_arch) | Karpenter Provisioner EC2 instance architecture | `list(string)` | <pre>[<br>  "amd64"<br>]</pre> | no |
 | <a name="input_node_instance_capacity_type"></a> [node\_instance\_capacity\_type](#input\_node\_instance\_capacity\_type) | Karpenter Provisioner EC2 instance capacity type | `list(string)` | <pre>[<br>  "spot",<br>  "on-demand"<br>]</pre> | no |
-| <a name="input_node_instance_type"></a> [node\_instance\_type](#input\_node\_instance\_type) | Karpenter Provisioner EC2 instance types | `list(string)` | <pre>[<br>  "m6a.large",<br>  "m6a.xlarge",<br>  "m6a.2xlarge",<br>  "m6a.4xlarge",<br>  "c6a.large",<br>  "c6a.xlarge",<br>  "c6a.2xlarge",<br>  "c6a.4xlarge",<br>  "r6a.large",<br>  "r6a.xlarge",<br>  "r6a.2xlarge",<br>  "r6a.4xlarge"<br>]</pre> | no |
+| <a name="input_node_instance_type"></a> [node\_instance\_type](#input\_node\_instance\_type) | Karpenter Provisioner EC2 instance types | `list(string)` | <pre>[<br>  "t3a.small",<br>  "t3a.medium",<br>  "m6a.large",<br>  "m6a.xlarge",<br>  "m6a.2xlarge",<br>  "m6a.4xlarge",<br>  "c6a.large",<br>  "c6a.xlarge",<br>  "c6a.2xlarge",<br>  "c6a.4xlarge",<br>  "r6a.large",<br>  "r6a.xlarge",<br>  "r6a.2xlarge",<br>  "r6a.4xlarge"<br>]</pre> | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | Map of tags for all resources | `map(string)` | n/a | yes |
+| <a name="input_vpc_name"></a> [vpc\_name](#input\_vpc\_name) | Do NOT use. Added just to provide compatibility for misc EKS cluster | `string` | `""` | no |
 
 ## Outputs
 
