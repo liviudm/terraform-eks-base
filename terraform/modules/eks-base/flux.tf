@@ -176,6 +176,26 @@ locals {
     name: image-reflector-controller
     namespace: flux-system
     EOT
+
+    deploy_image_reflector = <<EOT
+  apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    name: image-reflector-controller
+    namespace: flux-system
+  spec:
+    template:
+      spec:
+        containers:
+          - name: manager
+            args:
+              - --events-addr=http://notification-controller.flux-system.svc.cluster.local./
+              - --watch-all-namespaces=true
+              - --log-level=info
+              - --log-encoding=json
+              - --enable-leader-election
+              - --aws-autologin-for-ecr
+    EOT
   }
 }
 
