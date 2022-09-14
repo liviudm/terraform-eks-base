@@ -7,7 +7,7 @@ module "irsa_flux" {
   oidc_providers = {
     eks = {
       provider_arn               = module.eks.oidc_provider_arn
-      namespace_service_accounts = ["flux-system:kustomize-controller","flux-system:image-reflector-controller"]
+      namespace_service_accounts = ["flux-system:kustomize-controller", "flux-system:image-reflector-controller"]
     }
   }
 
