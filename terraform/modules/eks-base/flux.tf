@@ -205,7 +205,7 @@ resource "kubectl_manifest" "install" {
       v.data.apiVersion, v.data.kind, lookup(v.data.metadata, "namespace", ""), v.data.metadata.name
     ]))) => v.content
   }
-  depends_on = [kubernetes_namespace.flux_system, kubectl_manifest.karpenter_provisioner]
+  depends_on = [kubernetes_namespace.flux_system, kubectl_manifest.karpenter_default_provisioner]
   yaml_body  = each.value
 }
 
@@ -215,7 +215,7 @@ resource "kubectl_manifest" "sync" {
       v.data.apiVersion, v.data.kind, lookup(v.data.metadata, "namespace", ""), v.data.metadata.name
     ]))) => v.content
   }
-  depends_on = [kubernetes_namespace.flux_system, kubectl_manifest.karpenter_provisioner]
+  depends_on = [kubernetes_namespace.flux_system, kubectl_manifest.karpenter_default_provisioner]
   yaml_body  = each.value
 }
 

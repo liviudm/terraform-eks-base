@@ -25,10 +25,16 @@ variable "cluster_enabled_log_types" {
   default     = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
 }
 
-variable "node_instance_type" {
+variable "default_instance_types" {
   type        = list(string)
-  description = "Karpenter Provisioner EC2 instance types "
+  description = "Karpenter Provisioner EC2 instance types"
   default     = ["t3a.small", "t3a.medium", "m6a.large", "m6a.xlarge", "m6a.2xlarge", "m6a.4xlarge", "c6a.large", "c6a.xlarge", "c6a.2xlarge", "c6a.4xlarge", "r6a.large", "r6a.xlarge", "r6a.2xlarge", "r6a.4xlarge"]
+}
+
+variable "production_instance_types" {
+  type        = list(string)
+  description = "Karpenter Production Provisioner EC2 instance types"
+  default     = ["m6a.large", "m6a.xlarge", "m6a.2xlarge", "m6a.4xlarge", "c6a.large", "c6a.xlarge", "c6a.2xlarge", "c6a.4xlarge", "r6a.large", "r6a.xlarge", "r6a.2xlarge", "r6a.4xlarge"]
 }
 
 variable "node_instance_arch" {
@@ -37,7 +43,7 @@ variable "node_instance_arch" {
   default     = ["amd64"]
 }
 
-variable "node_instance_capacity_type" {
+variable "node_instance_capacity_types" {
   type        = list(string)
   description = "Karpenter Provisioner EC2 instance capacity type"
   default     = ["spot", "on-demand"]
