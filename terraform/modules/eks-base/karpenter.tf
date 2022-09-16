@@ -78,6 +78,8 @@ resource "kubectl_manifest" "karpenter_default_provisioner" {
   spec:
     consolitation:
       enabled: true
+    labels:
+      k8s-workload: dev
     requirements:
       - key: node.kubernetes.io/instance-type
         operator: In
@@ -106,6 +108,11 @@ resource "kubectl_manifest" "karpenter_production_provisioner" {
   spec:
     consolitation:
       enabled: true
+    taints:
+      - key: digitalmob.ro/production
+        effect: NoSchedule
+    labels:
+      k8s-workload: production
     requirements:
       - key: node.kubernetes.io/instance-type
         operator: In
