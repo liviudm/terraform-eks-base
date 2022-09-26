@@ -69,7 +69,7 @@ resource "helm_release" "karpenter" {
   }
 }
 
-resource "kubectl_manifest" "karpenter_provisioner" {
+resource "kubectl_manifest" "karpenter_default_provisioner" {
   yaml_body = <<-YAML
   apiVersion: karpenter.sh/v1alpha5
   kind: Provisioner
@@ -78,16 +78,51 @@ resource "kubectl_manifest" "karpenter_provisioner" {
   spec:
     consolitation:
       enabled: true
+    labels:
+      k8s-workload: dev
     requirements:
       - key: node.kubernetes.io/instance-type
         operator: In
-        values: ${jsonencode(var.node_instance_type)}
+        values: ${jsonencode(var.default_instance_types)}
       - key: kubernetes.io/arch
         operator: In
         values: ${jsonencode(var.node_instance_arch)}
       - key: karpenter.sh/capacity-type
         operator: In
-        values: ${jsonencode(var.node_instance_capacity_type)}
+        values: ${jsonencode(var.node_instance_capacity_types)}
+    providerRef:
+      name: default
+  YAML
+
+  depends_on = [
+    helm_release.karpenter
+  ]
+}
+
+resource "kubectl_manifest" "karpenter_production_provisioner" {
+  yaml_body = <<-YAML
+  apiVersion: karpenter.sh/v1alpha5
+  kind: Provisioner
+  metadata:
+    name: production
+  spec:
+    consolitation:
+      enabled: true
+    taints:
+      - key: digitalmob.ro/production
+        effect: NoSchedule
+    labels:
+      k8s-workload: production
+    requirements:
+      - key: node.kubernetes.io/instance-type
+        operator: In
+        values: ${jsonencode(var.production_instance_types)}
+      - key: kubernetes.io/arch
+        operator: In
+        values: ${jsonencode(var.node_instance_arch)}
+      - key: karpenter.sh/capacity-type
+        operator: In
+        values: ["on-demand"]
     providerRef:
       name: default
   YAML
