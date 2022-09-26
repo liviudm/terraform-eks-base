@@ -1,6 +1,6 @@
 module "vpc" {
   source  = "registry.terraform.io/terraform-aws-modules/vpc/aws"
-  version = "3.14.2"
+  version = "3.15.0"
 
   name = coalesce(var.vpc_name, var.cluster_name)
   cidr = var.network
@@ -59,7 +59,7 @@ module "vpc" {
 
 module "endpoints" {
   source  = "registry.terraform.io/terraform-aws-modules/vpc/aws//modules/vpc-endpoints"
-  version = "3.14.2"
+  version = "3.15.0"
 
   vpc_id             = module.vpc.vpc_id
   security_group_ids = [aws_security_group.vpc_endpoints_https.id]
