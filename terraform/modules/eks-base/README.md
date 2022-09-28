@@ -141,15 +141,15 @@
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_eks"></a> [eks](#module\_eks) | registry.terraform.io/terraform-aws-modules/eks/aws | 18.29.0 |
-| <a name="module_endpoints"></a> [endpoints](#module\_endpoints) | registry.terraform.io/terraform-aws-modules/vpc/aws//modules/vpc-endpoints | 3.15.0 |
-| <a name="module_irsa_ebs_csi"></a> [irsa\_ebs\_csi](#module\_irsa\_ebs\_csi) | registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.4.0 |
-| <a name="module_irsa_external_dns"></a> [irsa\_external\_dns](#module\_irsa\_external\_dns) | registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.4.0 |
-| <a name="module_irsa_flux"></a> [irsa\_flux](#module\_irsa\_flux) | registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.4.0 |
-| <a name="module_irsa_github_actions_runner"></a> [irsa\_github\_actions\_runner](#module\_irsa\_github\_actions\_runner) | registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.4.0 |
-| <a name="module_irsa_karpenter"></a> [irsa\_karpenter](#module\_irsa\_karpenter) | registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.4.0 |
-| <a name="module_irsa_vpc_cni"></a> [irsa\_vpc\_cni](#module\_irsa\_vpc\_cni) | registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.4.0 |
-| <a name="module_vpc"></a> [vpc](#module\_vpc) | registry.terraform.io/terraform-aws-modules/vpc/aws | 3.15.0 |
+| <a name="module_eks"></a> [eks](#module\_eks) | registry.terraform.io/terraform-aws-modules/eks/aws | 18.29.1 |
+| <a name="module_endpoints"></a> [endpoints](#module\_endpoints) | registry.terraform.io/terraform-aws-modules/vpc/aws//modules/vpc-endpoints | 3.16.0 |
+| <a name="module_irsa_ebs_csi"></a> [irsa\_ebs\_csi](#module\_irsa\_ebs\_csi) | registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.5.0 |
+| <a name="module_irsa_external_dns"></a> [irsa\_external\_dns](#module\_irsa\_external\_dns) | registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.5.0 |
+| <a name="module_irsa_flux"></a> [irsa\_flux](#module\_irsa\_flux) | registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.5.0 |
+| <a name="module_irsa_github_actions_runner"></a> [irsa\_github\_actions\_runner](#module\_irsa\_github\_actions\_runner) | registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.5.0 |
+| <a name="module_irsa_karpenter"></a> [irsa\_karpenter](#module\_irsa\_karpenter) | registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.5.0 |
+| <a name="module_irsa_vpc_cni"></a> [irsa\_vpc\_cni](#module\_irsa\_vpc\_cni) | registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | 5.5.0 |
+| <a name="module_vpc"></a> [vpc](#module\_vpc) | registry.terraform.io/terraform-aws-modules/vpc/aws | 3.16.0 |
 
 ## Resources
 
