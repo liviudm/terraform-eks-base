@@ -1,6 +1,6 @@
 module "irsa_external_dns" {
   source  = "registry.terraform.io/terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "5.4.0"
+  version = "5.5.0"
 
   role_name                     = "${var.cluster_name}-external-dns"
   attach_external_dns_policy    = true
