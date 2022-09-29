@@ -24,45 +24,46 @@ module "irsa_flux" {
 resource "aws_iam_policy" "flux" {
   name        = "${var.cluster_name}-flux"
   description = "Used for Flux Kustomize Controller"
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "kms:Encrypt",
-          "kms:Decrypt",
-          "kms:ReEncrypt*",
-          "kms:GenerateDataKey*",
-          "kms:DescribeKey"
-        ]
-        Effect   = "Allow"
-        Resource = aws_kms_key.fluxcd.arn
-      },
-      {
-        Action = [
-          "ecr:GetAuthorizationToken",
-          "ecr:BatchCheckLayerAvailability",
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:GetRepositoryPolicy",
-          "ecr:DescribeRepositories",
-          "ecr:ListImages",
-          "ecr:DescribeImages",
-          "ecr:BatchGetImage",
-          "ecr:GetLifecyclePolicy",
-          "ecr:GetLifecyclePolicyPreview",
-          "ecr:ListTagsForResource",
-          "ecr:DescribeImageScanFindings"
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      }
-    ]
-
-  })
+  policy      = data.aws_iam_policy_document.flux.json
 
   tags = merge(var.tags, {
     "karpenter.sh/discovery" = var.cluster_name
   })
+}
+
+#tfsec:ignore:aws-iam-no-policy-wildcards
+data "aws_iam_policy_document" "flux" {
+  statement {
+    sid    = "FluxKMSAccess"
+    effect = "Allow"
+    actions = [
+      "kms:Encrypt",
+      "kms:Decrypt",
+      "kms:ReEncrypt*",
+      "kms:GenerateDataKey*",
+      "kms:DescribeKey"
+    ]
+    resources = [aws_kms_key.fluxcd.arn]
+  }
+  statement {
+    sid    = "FluxECRAccess"
+    effect = "Allow"
+    actions = [
+      "ecr:GetAuthorizationToken",
+      "ecr:BatchCheckLayerAvailability",
+      "ecr:GetDownloadUrlForLayer",
+      "ecr:GetRepositoryPolicy",
+      "ecr:DescribeRepositories",
+      "ecr:ListImages",
+      "ecr:DescribeImages",
+      "ecr:BatchGetImage",
+      "ecr:GetLifecyclePolicy",
+      "ecr:GetLifecyclePolicyPreview",
+      "ecr:ListTagsForResource",
+      "ecr:DescribeImageScanFindings"
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "tls_private_key" "flux" {

@@ -1,3 +1,4 @@
+#tfsec:ignore:aws-eks-no-public-cluster-access tfsec:ignore:aws-eks-no-public-cluster-access-to-cidr
 module "eks" {
   source  = "registry.terraform.io/terraform-aws-modules/eks/aws"
   version = "18.29.1"

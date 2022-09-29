@@ -1,3 +1,4 @@
+#tfsec:ignore:aws-ec2-no-public-ip-subnet
 module "vpc" {
   source  = "registry.terraform.io/terraform-aws-modules/vpc/aws"
   version = "3.16.0"
@@ -82,6 +83,7 @@ module "endpoints" {
   tags = var.tags
 }
 
+#tfsec:ignore:aws-ec2-no-public-egress-sgr
 resource "aws_security_group" "vpc_endpoints_https" {
   name        = "VPC endpoints HTTPS"
   description = "Allow HTTPS traffic to VPC endpoints"

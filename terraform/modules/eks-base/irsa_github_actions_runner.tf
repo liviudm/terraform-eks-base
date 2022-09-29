@@ -24,23 +24,20 @@ module "irsa_github_actions_runner" {
 resource "aws_iam_policy" "github_actions_runner" {
   name        = "${var.cluster_name}-github-actions-runner"
   description = "Used for running self hosted GitHub Actions runners"
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = [
-          "*"
-        ]
-        Effect   = "Allow"
-        Resource = "*"
-      },
-    ]
-
-  })
+  policy      = data.aws_iam_policy_document.github_actions_runner.json
 
   tags = merge(var.tags, {
     "karpenter.sh/discovery" = var.cluster_name
   })
+}
+
+#tfsec:ignore:aws-iam-no-policy-wildcards
+data "aws_iam_policy_document" "github_actions_runner" {
+  statement {
+    effect    = "Allow"
+    actions   = ["*"]
+    resources = ["*"]
+  }
 }
 
 resource "kubernetes_namespace" "github_actions_runner" {
